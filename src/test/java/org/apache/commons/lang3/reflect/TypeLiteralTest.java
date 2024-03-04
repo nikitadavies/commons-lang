@@ -16,15 +16,12 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TypeLiteralTest extends AbstractLangTest {
 
@@ -54,5 +51,11 @@ public class TypeLiteralTest extends AbstractLangTest {
         assertTrue(TypeUtils.equals(String.class, stringType.getType()));
         final Typed<List<String>> listOfStringType = new TypeLiteral<List<String>>() {};
         assertTrue(TypeUtils.equals(TypeUtils.parameterize(List.class, String.class), listOfStringType.getType()));
+    }
+    @Test
+    void testToString() {
+        TypeLiteral<String> typeLiteral = new TypeLiteral<String>() {};
+        String expectedToString = "TypeLiteral<String>";
+        assertEquals(expectedToString, typeLiteral.toString());
     }
 }

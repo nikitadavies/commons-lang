@@ -9541,6 +9541,24 @@ public class StringUtils {
         return builder.toString();
     }
 
+    public static String reverseWordsOrder(String str) {
+        if (isEmpty(str)) {
+            return str;
+        }
+        String[] words = str.split("\\s+");
+        if (words.length==1){
+            return str;
+        }
+
+        StringBuilder reversal = new StringBuilder();
+        for (int j = words.length - 1; j >= 0; j--) {
+            reversal.append(words[j]).append(" ");
+        }
+
+        return reversal.toString().trim();
+    }
+
+
     /**
      * {@link StringUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used as

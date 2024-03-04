@@ -974,4 +974,11 @@ public class TypeUtilsTest<B> extends AbstractLangTest {
 
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
     }
+    @Test
+    void testHashcode(){
+        Type componentType = String.class;
+        Type genericArrayType = TypeUtils.genericArrayType(componentType);
+        int expectedHashCode = 67 << 4 | componentType.hashCode();
+        assertEquals(expectedHashCode, genericArrayType.hashCode());
+    }
 }

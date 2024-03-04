@@ -3385,4 +3385,33 @@ public class StringUtilsTest extends AbstractLangTest {
         assertSame("ab/ab", StringUtils.wrapIfMissing("ab/ab", "ab"));
         assertSame("//x//", StringUtils.wrapIfMissing("//x//", "//"));
     }
+    @Test
+    public void testReverseWordsOrderwithEmptyString(){
+        final String emptyString = "";
+        assertEquals("", StringUtils.reverseWordsOrder(emptyString));
+    }
+
+    @Test
+    public void testReverseWordsOrderwithSingleString(){
+        final String singleString = "Hello";
+        assertEquals("Hello", StringUtils.reverseWordsOrder(singleString));
+    }
+
+    @Test
+    public void testReverseWordsOrderwithMultiString(){
+        final String multiWord = "Welcome to programming";
+        assertNotEquals("programming to Welcom", StringUtils.reverseWordsOrder(multiWord));
+    }
+
+    @Test
+    public void testReverseWordsOrderwithLeadingAndTrailingSpaces() {
+        final String stringWithSpaces = "   Trim leading and trailing spaces   ";
+        assertEquals("spaces trailing and leading Trim", StringUtils.reverseWordsOrder(stringWithSpaces));
+    }
+
+    @Test
+    public void testReverseWordsOrderwithExtraSpacesBetweenWords() {
+        final String stringWithExtraSpaces = "word1    word2   word3";
+        assertEquals("word3 word2 word1", StringUtils.reverseWordsOrder(stringWithExtraSpaces));
+    }
 }

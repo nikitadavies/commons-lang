@@ -28,6 +28,9 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -1745,5 +1748,48 @@ public class NumberUtilsTest extends AbstractLangTest {
     public void testToShortStringI() {
         assertEquals(12345, NumberUtils.toShort("12345", (short) 5), "toShort(String, short) 1 failed");
         assertEquals(5, NumberUtils.toShort("1234.5", (short) 5), "toShort(String, short) 2 failed");
+    }
+
+    @Test
+    void testEmptyList() {
+
+        List<Integer> list = new ArrayList<Integer>();
+        Map<String, Double> map = NumberUtils.summarizeNumbers(list);
+        assertEquals(0.0, map.get("SUM"));
+
+    }
+
+    @Test
+    void testValidListwithInteger() {
+
+        List<Integer> list = new ArrayList<Integer>();
+
+        list.add(8);
+        list.add(5);
+        list.add(7);
+
+        Map<String, Double> map = NumberUtils.summarizeNumbers(list);
+        assertEquals(8.0, map.get("MAX"));
+        assertEquals(5.0, map.get("MIN"));
+
+    }
+
+    @Test
+    void testValidListwithDouble() {
+
+        List<Double> list = new ArrayList<Double>();
+
+        list.add(10.0);
+        list.add(25.0);
+        list.add(5.0);
+        list.add(7.0);
+        list.add(3.0);
+
+        Map<String, Double> map = NumberUtils.summarizeNumbers(list);
+        assertEquals(25.0, map.get("MAX"));
+        assertEquals(3.0, map.get("MIN"));
+        assertEquals(10.0, map.get("MEAN"));
+        assertEquals(50.0, map.get("SUM"));
+
     }
 }

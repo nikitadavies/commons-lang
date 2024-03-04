@@ -20,6 +20,9 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
@@ -1844,6 +1847,35 @@ public class NumberUtils {
             }
         }
         return true;
+    }
+
+    public static <T extends Number & Comparable<T>> Map<String, Double> summarizeNumbers(List<T> numbers){
+        Map<String, Double> summarizeMap = new HashMap<String, Double>();
+        if (numbers == null || numbers.isEmpty()) {
+            summarizeMap.put("SUM", 0.0);
+            summarizeMap.put("MEAN", 0.0);
+            summarizeMap.put("MIN", 0.0);
+            summarizeMap.put("MAX", 0.0);
+            return summarizeMap;
+        }
+
+        double sum = 0.0;
+        T min = numbers.get(0);
+        T max = numbers.get(0);
+        for (T value : numbers) {
+            sum += value.doubleValue();
+            if (value.compareTo(min) < 0) {
+                min = value;
+            }
+            if (value.compareTo(max) > 0) {
+                max = value;
+            }
+        }
+        summarizeMap.put("SUM", sum);
+        summarizeMap.put("MEAN", sum/numbers.size());
+        summarizeMap.put("MIN", min.doubleValue());
+        summarizeMap.put("MAX", max.doubleValue());
+        return summarizeMap;
     }
 
     /**
