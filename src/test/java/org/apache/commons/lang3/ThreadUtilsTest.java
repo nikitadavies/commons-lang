@@ -408,5 +408,20 @@ public class ThreadUtilsTest extends AbstractLangTest {
             alsot1.join();
         }
     }
+    @Test
+    public void testThreadJoin() throws InterruptedException {
+        Thread threadx1 = new Thread(() -> {
+            for (int i = 0; i < 5; i++) {
+                System.out.println(i);
+            }
+        });
+
+        threadx1.start();
+        long startTime = System.currentTimeMillis();
+        int timeperiod=1;
+        ThreadUtils.join(threadx1, Duration.ofSeconds(timeperiod));
+        long endTime = System.currentTimeMillis();
+        assertTrue(endTime - startTime < 10);
+    }
 
 }
